@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1555194143 source:c:\ides\c\project\ranking ordenator\main.c
+1555260671 source:c:\ides\c\project\ranking ordenator\main.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
