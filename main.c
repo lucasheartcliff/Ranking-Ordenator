@@ -6,17 +6,13 @@
 #include <conio.h>
 #include <string.h>
 
-/*Interface File*/
-#include "interface.h"
-
 /*Map File*/
 #include "map.h"
-
-#define buffer 255
 
 int main(void){
     mapa *mp = (mapa *) malloc(sizeof(mapa));
     int opt;
+
     if(mp == NULL){
         clean();
         printf("Falta de Memoria para inicializar.\n\nErro : #0001");
