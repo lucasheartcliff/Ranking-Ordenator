@@ -49,7 +49,7 @@
 		</Unit>
 		<Unit filename="map.c">
 			<Option compilerVar="CC" />
-			<Option target="map" />
+			<Option target="Debug" />
 		</Unit>
 		<Unit filename="map.h">
 			<Option target="&lt;{~None~}&gt;" />
