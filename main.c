@@ -1,11 +1,3 @@
-/*Core Files*/
-#include <stdio.h>
-#include <stdlib.h>
-
-/*String Files*/
-#include <conio.h>
-#include <string.h>
-
 /*Map File*/
 #include "map.h"
 

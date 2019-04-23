@@ -1,4 +1,5 @@
 /*Map.h*/
+
 /*Core Files*/
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,13 +9,6 @@
 #include <string.h>
 
 #define buffer 255
-
-#ifndef MAP_H
-#define MAP_H
-
-typedef struct _item item;
-typedef struct _query query;
-typedef struct _mapa mapa;
 
 typedef struct _item{
     int count; // contador de quantas vezes se repete
@@ -60,5 +54,3 @@ int filter_menu(void); // Menu de Filtros
 void clean(void); // Função limpa tela
 
 void pause(void); // Função pausa no sistema
-
-#endif // map_h

@@ -114,7 +114,6 @@ void scan_file(mapa *mp){
     mp->total = i;
 }
 
-
 int set_filters(mapa *mp){
     int opt = 0;
 
@@ -177,8 +176,6 @@ int main_menu(void){
         printf("                                 |               |\n");
         printf("                                 |     Sair      |    %c\n",order == 3?'<':' ');
         printf("                                 |_______________|\n");
-
-
         printf("\n\n");
         printf("                          Aperte Enter para selecionar.\n");
 
@@ -228,7 +225,7 @@ int filter_menu(void){
         printf("                                 |   Intervalo   |    %c\n",order == 1?'<':' ');
         printf("                                 |_______________|\n");
         printf("                                  _______________\n");
-        printf("                                 |               |\n");
+        printf("                                  |               |\n");
         printf("                                 |    Tamanho    |    %c\n",order == 2?'<':' ');
         printf("                                 |_______________|\n");
         printf("                                  _______________\n");
@@ -277,4 +274,8 @@ void clean(void){
 void pause(void){
     /*Pausa no sistema*/
     system("pause");
+}
+
+int main(){
+    return 0;
 }
