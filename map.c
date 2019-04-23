@@ -21,8 +21,9 @@ void clean_word(char word[]){
     for(i = 0; i <lenght ; i++ ){
         if( (word[i] == '.') || (word[i] == ',')  || (word[i] == '(') || (word[i] == ')')  || (word[i] == ';')  || (word[i] == ':')  || (word[i] == '[') || (word[i] == ']') || (word[i] == '{')  || (word[i] == '}') || (word[i] == '/') || (word[i] == '\\') ){
             for(j=i;j<lenght;j++){
-                word[j]= word[j+1]; /*Vai reorganizar o vetor de caracteres. */
+                word[j] = word[j+1]; /*Vai reorganizar o vetor de caracteres.*/
             }
+            i--;
         }
     }
 }
@@ -114,6 +115,56 @@ void scan_file(mapa *mp){
     mp->total = i;
 }
 
+void show(mapa *mp){
+    if(mp->filter.which == 1){
+        clean();
+        header();
+        for(int i=0;i<mp->total;i++){
+            if(!(strcmp(mp->list[i]->word,mp->filter.term))){
+                printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+                printf("                                |-------------------|------------|\n");
+            }
+        }
+        footer();
+        pause();
+
+    }else if(mp->filter.which == 2){
+        clean();
+        header();
+        for(int i=0;i<mp->total;i++){
+            if( (mp->list[i]->count <= mp->filter.count_bet[1]) && (mp->list[i]->count >= mp->filter.count_bet[0]) ){
+                printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+                printf("                                |-------------------|------------|\n");
+            }
+        }
+        footer();
+        pause();
+
+    }else if(mp->filter.which == 3){
+        clean();
+        header();
+        for(int i=0;i<mp->total;i++){
+            if( strlen(mp->list[i]->word) == mp->filter.num_char){
+                printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+                printf("                                |-------------------|------------|\n");
+            }
+        }
+        footer();
+        pause();
+
+
+    }else{
+        clean();
+        header();
+        for(int i=0;i<mp->total;i++){
+            printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+            printf("                                |-------------------|------------|\n");
+        }
+        footer();
+        pause();
+    }
+}
+
 int set_filters(mapa *mp){
     int opt = 0;
 
@@ -121,33 +172,82 @@ int set_filters(mapa *mp){
         opt = filter_menu();
 
         if(opt == 0){
-           /*if(set_word(mp)){
+           if(set_word(mp)){
                 mp->filter.which = 1;
-           }*/
+           }
 
            return 0;
         }else if(opt == 1){
-            /*if(set_gap(mp)){
+           if(set_gap(mp)){
                 mp->filter.which = 2;
-           }*/
+           }
+
             return 0;
         }else if(opt == 2){
-            /*if(set_word(mp)){
+            if(set_size(mp)){
                 mp->filter.which = 3;
-            }*/
+            }
+
             return 0;
         }else if(opt == 3){
             mp->filter.which = 0;
             mp->filter.count_bet[0] = 0;
             mp->filter.count_bet[1] = 0;
-            mp->filter.term = NULL;
             mp->filter.num_char = 0;
+            free(mp->filter.term);
 
             return 0;
         }else{
             return 0;
         }
     }
+
+    return 0;
+}
+
+int set_word(mapa *mp){
+    char strn[buffer];
+
+    free(mp->filter.term);
+
+    printf("Digite a palavra que deseja buscar:\n");
+    gets(strn);
+
+    clean_word(strn);
+
+    mp->filter.term = (char *) malloc( (strlen(strn) + 1) * sizeof(char) );
+    if(!(mp->filter.term == NULL) ){
+        strcpy(mp->filter.term, strn);
+
+        return 1;
+    }else{
+        clean();
+        printf("Memoria Insuficiente.\n\nErro : #0006");
+        exit(1);
+
+        return 0;
+    }
+}
+
+int set_gap(mapa *mp){
+    printf("Digite o intervalo de quantidade que deseja filtrar\n\n");
+
+    printf("Quantidade Maxima: ");
+    scanf("%i", &mp->filter.count_bet[1]);
+
+    printf("\n");
+
+    printf("Quantidade Minima: ");
+    scanf("%i", &mp->filter.count_bet[0]);
+
+    return 1;
+}
+
+int set_size(mapa *mp){
+    printf("Digite a quantidade de letras que deseja filtrar:\n");
+    scanf("%i", &mp->filter.num_char);
+
+    return 1;
 }
 
 int main_menu(void){
@@ -225,7 +325,7 @@ int filter_menu(void){
         printf("                                 |   Intervalo   |    %c\n",order == 1?'<':' ');
         printf("                                 |_______________|\n");
         printf("                                  _______________\n");
-        printf("                                  |               |\n");
+        printf("                                 |               |\n");
         printf("                                 |    Tamanho    |    %c\n",order == 2?'<':' ');
         printf("                                 |_______________|\n");
         printf("                                  _______________\n");
@@ -264,6 +364,16 @@ int filter_menu(void){
     while( get_key != 13); //Ficará no menu principal até que a tecla 'ENTER' seja pressionada
 
     return order;
+}
+
+void header(void){
+    printf("                                 ________________________________\n");
+    printf("                                |                   |            |\n");
+    printf("                                |      Palavra      | Quantidade |\n");
+    printf("                                |___________________|____________|\n");
+}
+void footer(void){
+    printf("                                |___________________|____________|\n");
 }
 
 void clean(void){

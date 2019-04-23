@@ -1,4 +1,5 @@
-/*Map.h*/
+#ifndef MAP_H_INCLUDED
+#define MAP_H_INCLUDED
 
 /*Core Files*/
 #include <stdio.h>
@@ -10,52 +11,57 @@
 
 #define buffer 255
 
-#ifndef MAP_H
-#define MAP_H
-
 typedef struct _item{
     int count; // contador de quantas vezes se repete
     char *word; // termo de tamanho dinamico
 }item;
 
 typedef struct _query{
-    int  which; // Um sinalizador para indicar qual filtro usar na hora de exibir se '0', nao hÃ¡ critÃ©rios
-    int  num_char; // Se quiser filtrar pelo nÃºmero de caractÃ©res nas palavras
+    int  which; // Um sinalizador para indicar qual filtro usar na hora de exibir se '0', nao há critérios
+    int  num_char; // Se quiser filtrar pelo número de caractéres nas palavras
     int  count_bet[2]; // Se quiser filtra por um intervalo
     char *term; // Se quiser filtrar por uma palavra
 }query;
 
 typedef struct _mapa{
-    query filter; // OpÃ§Ãµes de filtros
+    query filter; // Opções de filtros
     int total; // Total de palavras encontradas
     int block; // Quantos blocos de palavras encontrados (1 bloco == 10 palavras)
-    item **list; //** Ã© usado para ponteiro de ponteiros
+    item **list; //** é usado para ponteiro de ponteiros
 }mapa;
 
 
-/*FunÃ§Ãµes Mapa*/
+/*Funções Mapa*/
 void scan_file(mapa *mp); // Escaneia o arquivo
 
 void re_order(mapa *mp, int *pi); // Re-ordena as palavras de acordo com o indice e quantdade de vezes que se repete
 
 void clean_word(char word[]); // Remove caracteres especiais da palavra
 
+void show(mapa *mp); // Exibe os resultado da busca na tela
+
 int set_filters(mapa* mp);
 
-//int set_word(mapa *mp); // Filtro de buscar por palavra
+int set_word(mapa *mp); // Filtro de buscar por palavra
 
-//int set_gap(mapa *mp); // Filtro de busca por intervalo
+int set_gap(mapa *mp); // Filtro de busca por intervalo
 
-//int set_size(mapa *mp); // Filtro de busca por tamanho da palavra
+int set_size(mapa *mp); // Filtro de busca por tamanho da palavra
 
-/*FunÃ§Ãµes da Interface*/
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*Funções da Interface*/
 
 int main_menu(void); // Menu principal
 
 int filter_menu(void); // Menu de Filtros
 
-void clean(void); // FunÃ§Ã£o limpa tela
+void header(void); //Cabeçalho da Tabela de Exibição
 
-void pause(void); // FunÃ§Ã£o pausa no sistema
+void footer(void); // Rodapé da Tabela de Exibição das palavras
 
-#endif // MAP_H
+void clean(void); // Função limpa tela
+
+void pause(void); // Função pausa no sistema
+
+#endif // MAP_H_INCLUDED

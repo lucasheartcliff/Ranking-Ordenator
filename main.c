@@ -23,7 +23,7 @@ int main(void){
                     }
                     pause();*/
             }else if(opt == 1){
-
+                show(mp);
             }else if(opt == 2){
                 set_filters(mp);
             }
