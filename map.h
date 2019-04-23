@@ -10,6 +10,9 @@
 
 #define buffer 255
 
+#ifndef MAP_H
+#define MAP_H
+
 typedef struct _item{
     int count; // contador de quantas vezes se repete
     char *word; // termo de tamanho dinamico
@@ -54,3 +57,5 @@ int filter_menu(void); // Menu de Filtros
 void clean(void); // Função limpa tela
 
 void pause(void); // Função pausa no sistema
+
+#endif // MAP_H

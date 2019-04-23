@@ -275,7 +275,3 @@ void pause(void){
     /*Pausa no sistema*/
     system("pause");
 }
-
-int main(){
-    return 0;
-}
