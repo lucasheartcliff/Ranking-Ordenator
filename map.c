@@ -42,6 +42,8 @@ void scan_file(mapa *mp){
     printf("Digite o nome do arquivo, com o formato, que deseja abrir:\n");
     gets(arq);
 
+    free(mp->list); // Se já houver algum conteúdo de uma busca anterior.
+
     /*printf("%s",arq);
       pause();
     */
@@ -116,52 +118,58 @@ void scan_file(mapa *mp){
 }
 
 void show(mapa *mp){
-    if(mp->filter.which == 1){
+    if(mp->total == 0){
         clean();
-        header();
-        for(int i=0;i<mp->total;i++){
-            if(!(strcmp(mp->list[i]->word,mp->filter.term))){
-                printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
-                printf("                                |-------------------|------------|\n");
-            }
-        }
-        footer();
+        printf("Nenhum registro encontrado.\n\n");
         pause();
-
-    }else if(mp->filter.which == 2){
-        clean();
-        header();
-        for(int i=0;i<mp->total;i++){
-            if( (mp->list[i]->count <= mp->filter.count_bet[1]) && (mp->list[i]->count >= mp->filter.count_bet[0]) ){
-                printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
-                printf("                                |-------------------|------------|\n");
-            }
-        }
-        footer();
-        pause();
-
-    }else if(mp->filter.which == 3){
-        clean();
-        header();
-        for(int i=0;i<mp->total;i++){
-            if( strlen(mp->list[i]->word) == mp->filter.num_char){
-                printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
-                printf("                                |-------------------|------------|\n");
-            }
-        }
-        footer();
-        pause();
-
-
     }else{
-        clean();
-        header();
-        for(int i=0;i<mp->total;i++){
-            printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
-            printf("                                |-------------------|------------|\n");
+        if(mp->filter.which == 1){
+            clean();
+            header();
+            for(int i=0;i<mp->total;i++){
+                if(!(strcmp(mp->list[i]->word,mp->filter.term))){
+                    printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+                    printf("                                |-------------------|------------|\n");
+                }
+            }
+            footer();
+            pause();
+
+        }else if(mp->filter.which == 2){
+            clean();
+            header();
+            for(int i=0;i<mp->total;i++){
+                if( (mp->list[i]->count <= mp->filter.count_bet[1]) && (mp->list[i]->count >= mp->filter.count_bet[0]) ){
+                    printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+                    printf("                                |-------------------|------------|\n");
+                }
+            }
+            footer();
+            pause();
+
+        }else if(mp->filter.which == 3){
+            clean();
+            header();
+            for(int i=0;i<mp->total;i++){
+                if( strlen(mp->list[i]->word) == mp->filter.num_char){
+                    printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+                    printf("                                |-------------------|------------|\n");
+                }
+            }
+            footer();
+            pause();
+
+
+        }else{
+            clean();
+            header();
+            for(int i=0;i<mp->total;i++){
+                printf("                                |%s\t            |    \t%i|\n",mp->list[i]->word, mp->list[i]->count);
+                printf("                                |-------------------|------------|\n");
+            }
+            footer();
+            pause();
         }
-        footer();
-        pause();
     }
 }
 

@@ -26,7 +26,6 @@ typedef struct _query{
 typedef struct _mapa{
     query filter; // Opções de filtros
     int total; // Total de palavras encontradas
-    int block; // Quantos blocos de palavras encontrados (1 bloco == 10 palavras)
     item **list; //** é usado para ponteiro de ponteiros
 }mapa;
 
@@ -48,7 +47,7 @@ int set_gap(mapa *mp); // Filtro de busca por intervalo
 
 int set_size(mapa *mp); // Filtro de busca por tamanho da palavra
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/***************************************************************************************************************************************/
 
 /*Funções da Interface*/
 

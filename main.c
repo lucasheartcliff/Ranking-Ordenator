@@ -10,6 +10,8 @@ int main(void){
         printf("Falta de Memoria para inicializar.\n\nErro : #0001");
         exit(1);
     }else{
+        mp->total = 0;
+
         while(opt != 3){
             opt = main_menu();
 
